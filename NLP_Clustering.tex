@@ -282,14 +282,17 @@
     
     \subsection{Abstract}\label{abstract}
 
-TED talks have become a standard on how to deliver informational talks.
-All of these talks are presented in a digital format online for public
-viweing. By using the transcripts and website data for all TED talks
-given up to September 2017 +++. Each video in the website is provided
-with suggested similar videos and informative topic-tags on them. We
-present an improvement in the suggested videos, and we consolidate a
-base on tags that are more useful by using bisecting k-means and LDA-GS
-respectively.
+Proper labeling allows users to understand the content of available
+documents such as scientific papers, movies, books, music, legal
+documents, and any medium from which text can be extracted. Labeling is
+an inherently biased and time-expensive problem, given that it is
+restricted by the labels that a human can provide, and because it
+requires studying the complete document and having field knowledge to
+provide a proper label. We suggest an innovative document labeling
+method that works completely unsupervised. This implies no human priors
+to suggest labeling, and thus no human selection bias. We demonstrate
+the usefulness of this algorithm by labeling TED talks based solely on
+their transcripts.
 
     \section{Introduction}\label{introduction}
 
@@ -307,7 +310,17 @@ suggestions to the online audience, would provide an
 other fields and problems. This sort of classification method would give
 the tools for a machine to sort through thousands of legal documents,
 health documents, speech transcript, or even books, and allow the
-scholar or reader to approach them seamlessly.
+scholar or reader to approach them seamlessly by following their labels.
+
+We have found several research papers that have attempted to solve this
+problem. We suggest that our approach can propose a better genre or
+topic labeling for large document sets (i.e. hundreds of books, legal
+documents, or movies) or give a human-like description of a unique
+document (i.e. a book). The reson for this is that most labeling
+techniques rely on in-document information, which can be very limited,
+or a trained or pre-determined labeling set. Our approach does not
+depend on the limitations of within-document content nor human decided
+labels to tag the data.
 
 \subsection{TED Talks}\label{ted-talks}
 
@@ -317,36 +330,29 @@ of technology, entertainment and design (T.E.D.). Since 2006, the
 conference platform decided to make every talk public and free by
 publishing them on their website. Given its history and prestige, TED
 talks have become a standard for quality when it comes to delivering an
-informational talk to an audience.
+informational talk to an audience. We will use the transcripts that come
+from their talks to suggest individual talk labeling and cluster
+labeling. We will compare our labels with those given by the
+organization itself.
 
 \section{Data}\label{data}
 
 \subsection{Description}\label{description}
 
-We will describe this data more thoroughly as we develop the
-visualizations, but we would like to highlight some information that
-helps us understand this data, and with that, some interesting facts
-worth mentioning. The most common speaker occupation is "Writer" with 45
-occurrences, followed by "Designer" with a total of 34 occurrences. The
-total number of occupations among speakers is 1458. The average talk is
-13.7 minutes long, with the shortest being 2.25 minutes and the longest
-being about 1.5 hours, which was given by the author of "The
-Hitchhiker's Guide to the Galaxy". The average TED talk has been
-translated to 27 languages, and there are 86 talks that have no assigned
-language. These talks have a mean number of views significantly lower
-than average, and they are mainly musical presentations. The average
-number of views is 1.6 million and the talk with highest number of views
-has been seen almost 50 million times and it's called "Do schools kill
+TED talks have very diverse content in their talks. For this reason we
+would like to provide some insight in what the data looks like. The most
+common TED speaker occupation is "Writer" with 45 occurrences, followed
+by "Designer" with a total of 34 occurrences. The total number of
+occupations among speakers is 1458. The average talk is 13.7 minutes
+long, with the shortest being 2.25 minutes and the longest being about
+1.5 hours, which was given by the author of "The Hitchhiker's Guide to
+the Galaxy". The average TED talk has been translated to 27 languages,
+and there are 86 talks that have no assigned language. These talks will
+not be used as their is no transcript available for them, given that
+they are mainly musical presentations. The average number of views per
+talk is 1.6 million and the talk with highest number of views has been
+seen almost 50 million times and it's called "Do schools kill
 creativity?".
-
-An important variable we must understand is the one named "ratings".
-This variable is a categorical description of the talk. It is
-opinion-based and given by the online audience: after watching the
-video, the viewer is asked: \emph{"How would you describe this talk?
-Tell us by choosing up to three words. (If you choose just one, it will
-count three times.)".} Afterwards, the viewer is given 14 possible
-adjectives to describe the talk with, and can only choose 3 of them. The
-same 14 possibilities are given to all viewers.
 
 With regards to the video tags, TED gives each video a number of
 possible tags to link a talk with different topics. The average video
@@ -364,23 +370,16 @@ the number of views the talks have.
 {\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} TEX}
         \PY{l+s+sd}{\PYZbs{}begin\PYZob{}tabular\PYZcb{}\PYZob{}llll\PYZcb{}}
         \PY{l+s+sd}{\PYZbs{}toprule}
-        \PY{l+s+sd}{\PYZob{}\PYZcb{} \PYZam{}                0 \PYZam{}     1 \PYZam{}                                        2 \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{Variable \PYZam{}                Type \PYZam{}     Description  \PYZbs{}\PYZbs{}}
         \PY{l+s+sd}{\PYZbs{}midrule}
-        \PY{l+s+sd}{0  \PYZam{}           title: \PYZam{}   str \PYZam{}                    The title of the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{1  \PYZam{}     description: \PYZam{}   str \PYZam{}        A blurb of what the talk is about \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{2  \PYZam{}    main\PYZbs{}\PYZus{}speaker: \PYZam{}   str \PYZam{}      The first named speaker of the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{3  \PYZam{}     speaker\PYZbs{}\PYZus{}occ: \PYZam{}   str \PYZam{}       The occupation of the main speaker \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{4  \PYZam{}     num\PYZbs{}\PYZus{}speaker: \PYZam{}   int \PYZam{}       The number of speakers in the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{5  \PYZam{}        duration: \PYZam{}   int \PYZam{}      The duration of the talk in seconds \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{6  \PYZam{}       film\PYZbs{}\PYZus{}date: \PYZam{}   int \PYZam{}       The date of filming Unix timestamp \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{7  \PYZam{}  published\PYZbs{}\PYZus{}date: \PYZam{}   int \PYZam{}    The online publication Unix timestamp \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{8  \PYZam{}        comments: \PYZam{}   int \PYZam{}  The number of comments made on the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{9  \PYZam{}       languages: \PYZam{}   int \PYZam{}   Number of languages available for talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{10 \PYZam{}         ratings: \PYZam{}  dict \PYZam{}    The various ratings given to the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{11 \PYZam{}             url: \PYZam{}   url \PYZam{}                      The URL of the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{12 \PYZam{}           views: \PYZam{}   int \PYZam{}          The number of views on the talk \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{13 \PYZam{}   related\PYZbs{}\PYZus{}talks: \PYZam{}  dict \PYZam{}          List of dict of 6 related talks \PYZbs{}\PYZbs{}}
-        \PY{l+s+sd}{14 \PYZam{}            tags: \PYZam{}  list \PYZam{}      The themes associated with the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{title: \PYZam{}         str \PYZam{}                    The title of the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{description: \PYZam{}         str \PYZam{}        A blurb of what the talk is about \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{main\PYZbs{}\PYZus{}speaker: \PYZam{}         str \PYZam{}      The first named speaker of the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{speaker\PYZbs{}\PYZus{}occ: \PYZam{}         str \PYZam{}       The occupation of the main speaker \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{duration: \PYZam{}         int \PYZam{}      The duration of the talk in seconds \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{url: \PYZam{}         url \PYZam{}                      The URL of the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{\PYZbs{}\PYZus{}talks: \PYZam{}        dict \PYZam{}          List of dict of 6 related talks \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{tags: \PYZam{}        list \PYZam{}      The themes associated with the talk \PYZbs{}\PYZbs{}}
         \PY{l+s+sd}{\PYZbs{}bottomrule}
         \PY{l+s+sd}{\PYZbs{}end\PYZob{}tabular\PYZcb{}}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
@@ -391,11 +390,10 @@ the number of views the talks have.
 The transcript dataset contains the transcripts for 2467 TED talks. In
 this database we found three duplicates. We decided to analyze only the
 talks that are found on both databases in order to have homogeneous
-data. The 86 talks for which there is no transcript data are the most
-recent ones. Therefore, we discarded the data that was duplicated and
-for which there were no transcripts.
+data. The 86 talks for which there is no transcript data are the music
+ones we had referred to before. We discarded any dupiclates.
 
-\subparagraph{Source:}\label{source}
+\paragraph{Source:}\label{source}
 
 The data has been scraped from the official TED Website and is available
 under the Creative Commons License. It was retrieved from the Kaggle
@@ -417,10 +415,10 @@ topic. Given the list of words assigned to each topic, we implement and
 algorithm to assign a macro concept that encapsulate all the words for
 each topic. For example, our LDA may have as an output the following
 list:
-\texttt{{[}\textquotesingle{}government\textquotesingle{},\ \textquotesingle{}party\textquotesingle{},\ \textquotesingle{}elections\textquotesingle{},\ \textquotesingle{}voting\textquotesingle{},\ \textquotesingle{}candidate\textquotesingle{}{]}}
-Step two will label this as \texttt{Politics}. Step three is applying
-these topic labels to the different clusters that will be provided by
-part two.
+\texttt{{[}\textquotesingle{}government\textquotesingle{},\ \textquotesingle{}party\textquotesingle{},\ \textquotesingle{}elections\textquotesingle{},\ \textquotesingle{}voting\textquotesingle{},\ \textquotesingle{}candidate\textquotesingle{}{]}}.
+Step two will label this list of topics under the concept
+\texttt{Politics}. Step three is applying these topic labels to the
+different clusters that will be provided by part two.
 
 The second part will be a two-fold. First, we will use a bisecting
 K-Means algorithm in order to determine what the main clusters in the
@@ -431,20 +429,26 @@ documents.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Labeling
+  Creating Labels
 
   \begin{enumerate}
   \def\labelenumii{\arabic{enumii}.}
   \setcounter{enumii}{1}
+  \tightlist
   \item
     LDA - Prevalent Topics
   \item
     Wiki, Glove - Label the topics
   \item
+    Labeling
+
     \begin{itemize}
-    \tightlist
     \item
-      Label the clusters
+      Cluster Labeling
+
+      \emph{-OR-}
+    \item
+      Individual Topic Labeling
     \end{itemize}
   \end{enumerate}
 \item
@@ -471,11 +475,49 @@ documents.
   \end{enumerate}
 \end{enumerate}
 
+\subsubsection{LDA with Gibbs Sampling Topic
+selection}\label{lda-with-gibbs-sampling-topic-selection}
+
+The lda is amazing
+
+\subsubsection{Wiki and GloVe Topic
+Selection}\label{wiki-and-glove-topic-selection}
+
+Given all the readily available information that can be found online, we
+used the GloVe dataset provided by +++ and the Wikipedia API to extra
+readily available public knowledge data and
+
+\subsubsection{Cluster Labeling}\label{cluster-labeling}
+
+Our cluster stuff is even better!
+
     \section{Results}\label{results}
+
+After applying the algorithm to the TED talk transcripts dataset, we got
+the following results. After applying a 7 cluster approach we can see
+the following: (visualize similar talks from the clusters)
+
+Each cluster was labeled as follows: (Show the labels and some titles
+found in the clusters
+
+The suggestions found on the website do this: (Compare a sample of ten
+talks labeled by the algorithm vs by TED)
 
     \section{Analysis}\label{analysis}
 
+We think the results are amazing.
+
     \section{~Conclusion}\label{conclusion}
+
+It is a pretty amazing algorithm
+
+    \section{~To Do}\label{to-do}
+
+Dictionary API Macro Concept Selector
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
 
 
     % Add a bibliography block to the postdoc
