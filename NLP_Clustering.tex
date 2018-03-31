@@ -280,21 +280,7 @@
     
 
     
-    \paragraph{Brigham Young University}\label{brigham-young-university}
-
-\begin{verbatim}
-Bailey Smith
-Juan S. Rodriguez
-\end{verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-\end{Verbatim}
-
-    \section{Introduction}\label{introduction}
-
-\subsection{Abstract}\label{abstract}
+    \subsection{Abstract}\label{abstract}
 
 TED talks have become a standard on how to deliver informational talks.
 All of these talks are presented in a digital format online for public
@@ -305,15 +291,7 @@ present an improvement in the suggested videos, and we consolidate a
 base on tags that are more useful by using bisecting k-means and LDA-GS
 respectively.
 
-\subsection{TED Talks}\label{ted-talks}
-
-Since 1984, TED has become an iconic conference in which experts of the
-world in different fields present their ideas and analysis in the fields
-of technology, entertainment and design (T.E.D.). Since 2006, the
-conference platform decided to make every talk public and free by
-publishing them on their website. Given its history and prestige, TED
-talks have become a standard for quality when it comes to delivering an
-informational talk to an audience.
+    \section{Introduction}\label{introduction}
 
 \subsection{Motivation}\label{motivation}
 
@@ -330,6 +308,100 @@ other fields and problems. This sort of classification method would give
 the tools for a machine to sort through thousands of legal documents,
 health documents, speech transcript, or even books, and allow the
 scholar or reader to approach them seamlessly.
+
+\subsection{TED Talks}\label{ted-talks}
+
+Since 1984, TED has become an iconic conference in which experts of the
+world in different fields present their ideas and analysis in the fields
+of technology, entertainment and design (T.E.D.). Since 2006, the
+conference platform decided to make every talk public and free by
+publishing them on their website. Given its history and prestige, TED
+talks have become a standard for quality when it comes to delivering an
+informational talk to an audience.
+
+\section{Data}\label{data}
+
+\subsection{Description}\label{description}
+
+We will describe this data more thoroughly as we develop the
+visualizations, but we would like to highlight some information that
+helps us understand this data, and with that, some interesting facts
+worth mentioning. The most common speaker occupation is "Writer" with 45
+occurrences, followed by "Designer" with a total of 34 occurrences. The
+total number of occupations among speakers is 1458. The average talk is
+13.7 minutes long, with the shortest being 2.25 minutes and the longest
+being about 1.5 hours, which was given by the author of "The
+Hitchhiker's Guide to the Galaxy". The average TED talk has been
+translated to 27 languages, and there are 86 talks that have no assigned
+language. These talks have a mean number of views significantly lower
+than average, and they are mainly musical presentations. The average
+number of views is 1.6 million and the talk with highest number of views
+has been seen almost 50 million times and it's called "Do schools kill
+creativity?".
+
+An important variable we must understand is the one named "ratings".
+This variable is a categorical description of the talk. It is
+opinion-based and given by the online audience: after watching the
+video, the viewer is asked: \emph{"How would you describe this talk?
+Tell us by choosing up to three words. (If you choose just one, it will
+count three times.)".} Afterwards, the viewer is given 14 possible
+adjectives to describe the talk with, and can only choose 3 of them. The
+same 14 possibilities are given to all viewers.
+
+With regards to the video tags, TED gives each video a number of
+possible tags to link a talk with different topics. The average video
+has 7.56 tags, with some videos having over 30 tags and some having just
+one. The other important variable that will be useful for us to observe
+is the related talks. Every video is given a connection to 6 other
+videos that are suggested for the viewer to watch. We suggest to improve
+these two metrics, having specific tags that might be more useful for
+the viewer, and testing if there is any link in the related talks with
+the number of views the talks have.
+
+\subsection{Variables}\label{variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} TEX}
+        \PY{l+s+sd}{\PYZbs{}begin\PYZob{}tabular\PYZcb{}\PYZob{}llll\PYZcb{}}
+        \PY{l+s+sd}{\PYZbs{}toprule}
+        \PY{l+s+sd}{\PYZob{}\PYZcb{} \PYZam{}                0 \PYZam{}     1 \PYZam{}                                        2 \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{\PYZbs{}midrule}
+        \PY{l+s+sd}{0  \PYZam{}           title: \PYZam{}   str \PYZam{}                    The title of the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{1  \PYZam{}     description: \PYZam{}   str \PYZam{}        A blurb of what the talk is about \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{2  \PYZam{}    main\PYZbs{}\PYZus{}speaker: \PYZam{}   str \PYZam{}      The first named speaker of the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{3  \PYZam{}     speaker\PYZbs{}\PYZus{}occ: \PYZam{}   str \PYZam{}       The occupation of the main speaker \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{4  \PYZam{}     num\PYZbs{}\PYZus{}speaker: \PYZam{}   int \PYZam{}       The number of speakers in the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{5  \PYZam{}        duration: \PYZam{}   int \PYZam{}      The duration of the talk in seconds \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{6  \PYZam{}       film\PYZbs{}\PYZus{}date: \PYZam{}   int \PYZam{}       The date of filming Unix timestamp \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{7  \PYZam{}  published\PYZbs{}\PYZus{}date: \PYZam{}   int \PYZam{}    The online publication Unix timestamp \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{8  \PYZam{}        comments: \PYZam{}   int \PYZam{}  The number of comments made on the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{9  \PYZam{}       languages: \PYZam{}   int \PYZam{}   Number of languages available for talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{10 \PYZam{}         ratings: \PYZam{}  dict \PYZam{}    The various ratings given to the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{11 \PYZam{}             url: \PYZam{}   url \PYZam{}                      The URL of the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{12 \PYZam{}           views: \PYZam{}   int \PYZam{}          The number of views on the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{13 \PYZam{}   related\PYZbs{}\PYZus{}talks: \PYZam{}  dict \PYZam{}          List of dict of 6 related talks \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{14 \PYZam{}            tags: \PYZam{}  list \PYZam{}      The themes associated with the talk \PYZbs{}\PYZbs{}}
+        \PY{l+s+sd}{\PYZbs{}bottomrule}
+        \PY{l+s+sd}{\PYZbs{}end\PYZob{}tabular\PYZcb{}}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+    \subsubsection{Transcript Dataset}\label{transcript-dataset}
+
+The transcript dataset contains the transcripts for 2467 TED talks. In
+this database we found three duplicates. We decided to analyze only the
+talks that are found on both databases in order to have homogeneous
+data. The 86 talks for which there is no transcript data are the most
+recent ones. Therefore, we discarded the data that was duplicated and
+for which there were no transcripts.
+
+\subparagraph{Source:}\label{source}
+
+The data has been scraped from the official TED Website and is available
+under the Creative Commons License. It was retrieved from the Kaggle
+featured data sets in October 2017.
+
+    \section{Methods}\label{methods}
 
 \subsection{Algorithm Approach:}\label{algorithm-approach}
 
@@ -384,64 +456,26 @@ documents.
   \tightlist
   \item
     Bisecting KMeans - Main Clusters
+
+    \begin{enumerate}
+    \def\labelenumiii{\arabic{enumiii}.}
+    \setcounter{enumiii}{2}
+    \tightlist
+    \item
+      Count Vectorizer
+    \item
+      sklearn.feature\_extraction.text.CountVectorizer
+    \end{enumerate}
   \item
     Cosine Similarity - Related Talks
   \end{enumerate}
 \end{enumerate}
 
-    
+    \section{Results}\label{results}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{variables} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The title of the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A blurb of what the talk is about}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{main\PYZus{}speaker:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The first named speaker of the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{speaker\PYZus{}occ:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The occupation of the main speaker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}speaker:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The number of speakers in the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The duration of the talk in seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{film\PYZus{}date:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The date of filming Unix timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{published\PYZus{}date:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The online publication Unix timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The number of comments made on the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{languages:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of languages available for talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ratings:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The various ratings given to the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{url:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The URL of the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The number of views on the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{related\PYZus{}talks:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{List of dict of 6 related talks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
-        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{list}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The themes associated with the talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
-\end{Verbatim}
+    \section{Analysis}\label{analysis}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{variables}\PY{o}{.}\PY{n}{to\PYZus{}latex}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-\textbackslash{}begin\{tabular\}\{llll\}
-\textbackslash{}toprule
-\{\} \&                0 \&     1 \&                                        2 \textbackslash{}\textbackslash{}
-\textbackslash{}midrule
-0  \&           title: \&   str \&                    The title of the talk \textbackslash{}\textbackslash{}
-1  \&     description: \&   str \&        A blurb of what the talk is about \textbackslash{}\textbackslash{}
-2  \&    main\textbackslash{}\_speaker: \&   str \&      The first named speaker of the talk \textbackslash{}\textbackslash{}
-3  \&     speaker\textbackslash{}\_occ: \&   str \&       The occupation of the main speaker \textbackslash{}\textbackslash{}
-4  \&     num\textbackslash{}\_speaker: \&   int \&       The number of speakers in the talk \textbackslash{}\textbackslash{}
-5  \&        duration: \&   int \&      The duration of the talk in seconds \textbackslash{}\textbackslash{}
-6  \&       film\textbackslash{}\_date: \&   int \&       The date of filming Unix timestamp \textbackslash{}\textbackslash{}
-7  \&  published\textbackslash{}\_date: \&   int \&    The online publication Unix timestamp \textbackslash{}\textbackslash{}
-8  \&        comments: \&   int \&  The number of comments made on the talk \textbackslash{}\textbackslash{}
-9  \&       languages: \&   int \&   Number of languages available for talk \textbackslash{}\textbackslash{}
-10 \&         ratings: \&  dict \&    The various ratings given to the talk \textbackslash{}\textbackslash{}
-11 \&             url: \&   url \&                      The URL of the talk \textbackslash{}\textbackslash{}
-12 \&           views: \&   int \&          The number of views on the talk \textbackslash{}\textbackslash{}
-13 \&   related\textbackslash{}\_talks: \&  dict \&          List of dict of 6 related talks \textbackslash{}\textbackslash{}
-14 \&            tags: \&  list \&      The themes associated with the talk \textbackslash{}\textbackslash{}
-\textbackslash{}bottomrule
-\textbackslash{}end\{tabular\}
-
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} 
-\end{Verbatim}
+    \section{~Conclusion}\label{conclusion}
 
 
     % Add a bibliography block to the postdoc
